@@ -3,7 +3,7 @@ using KafkaEventBus.Abstractions;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 
-namespace KafkaEventBus;
+namespace KafkaEventBus.Producer;
 
 public class CoreProducer<TKey, TValue> : IDisposable
 {
@@ -22,13 +22,14 @@ public class CoreProducer<TKey, TValue> : IDisposable
         IDateTimeProvider dateTimeProvider,
         IDeliveryErrorHandler deliveryErrorHandler,
         ILogger<CoreProducer<TKey, TValue>> logger,
-        string? topicName = null)
+        string topicName)
     {
         ArgumentNullException.ThrowIfNull(producerConfig, nameof(producerConfig));
         ArgumentNullException.ThrowIfNull(converterFactory, nameof(converterFactory));
         ArgumentNullException.ThrowIfNull(dateTimeProvider, nameof(dateTimeProvider));
         ArgumentNullException.ThrowIfNull(deliveryErrorHandler, nameof(deliveryErrorHandler));
         ArgumentNullException.ThrowIfNull(logger, nameof(logger));
+        ArgumentNullException.ThrowIfNull(topicName, nameof(topicName));
 
         _dateTimeProvider = dateTimeProvider;
         _logger = logger;
@@ -42,7 +43,7 @@ public class CoreProducer<TKey, TValue> : IDisposable
                 log.Message))
             .SetStatisticsHandler((_, stat) => _logger.LogDebug("Producer statistics: {Statistics}", stat))
             .Build();
-        _topicName = topicName ?? typeof(TValue).Name.ToLowerInvariant();
+        _topicName = topicName;
         _bufferLength = producerConfig.Value.BufferLength;
         _deliveryTimeout = producerConfig.Value.DeliveryTimeout;
     }

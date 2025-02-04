@@ -3,7 +3,7 @@ using KafkaEventBus.Producer;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 
-namespace KafkaEventBus.Service;
+namespace KafkaEventBus.Service.Configuration;
 
 public class EventBusBuilder
 {

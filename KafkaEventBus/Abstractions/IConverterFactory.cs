@@ -1,6 +1,6 @@
 namespace KafkaEventBus.Abstractions;
 
-public interface IMessageConverterFactory
+public interface IConverterFactory
 {
-    
+    IMessageConverter<T> GetMessageConverter<T>();
 }

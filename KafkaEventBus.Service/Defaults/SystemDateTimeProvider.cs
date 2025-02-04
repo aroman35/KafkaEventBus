@@ -1,6 +1,13 @@
-namespace KafkaEventBus.Service;
+using KafkaEventBus.Abstractions;
 
-public class SystemDateTimeProvider
+namespace KafkaEventBus.Service.Defaults;
+
+public class SystemDateTimeProvider : IDateTimeProvider
 {
-    
+    public DateTime Now => DateTime.UtcNow;
+
+    public Task Delay(TimeSpan timeSpan, CancellationToken cancellationToken = default)
+    {
+        return Task.Delay(timeSpan, cancellationToken);
+    }
 }

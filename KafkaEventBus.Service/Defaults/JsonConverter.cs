@@ -1,7 +1,7 @@
 using Confluent.Kafka;
 using KafkaEventBus.Abstractions;
 
-namespace KafkaEventBus.Service;
+namespace KafkaEventBus.Service.Defaults;
 
 public class JsonConverter : IConverterFactory
 {
